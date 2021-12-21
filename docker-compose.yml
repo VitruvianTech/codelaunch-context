@@ -28,7 +28,7 @@ services:
     environment:
       ENV: development
       VERBOSE: ${VERBOSE:-}
-      DEBUG: ${DEBUG:-graphile-build:warn,postgraphile:postgres:error} # Enable graphile debugging (https://www.graphile.org/postgraphile/debugging/#via-debug-envvar)
+      DEBUG: ${DEBUG:-graphile-build:warn,postgraphile:postgres:error} # Graphile debugging (https://www.graphile.org/postgraphile/debugging/#via-debug-envvar)
       NITRO_PORT: ${NITRO_PORT:-3000}
       VITE_PORT: ${VITE_PORT:-24678}
       DATABASE_SOURCE_URL: postgresql://postgres@source/postgres
