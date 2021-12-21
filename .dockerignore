@@ -24,3 +24,5 @@ apps/
 **/apps/
 docker-compose.yml
 Dockerfile
+**/storybook/
+storybook-static

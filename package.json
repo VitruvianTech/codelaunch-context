@@ -4,15 +4,15 @@
   "canonical": "CodeLaunch™",
   "theme": "#292929",
   "homepage": "https://codelaunch.site",
-  "description": "Rapid-fire app development™ and deployment for enterprise organizations!",
+  "description": "Rapid-fire app development™ and multi-repo architecture for enterprise organizations!",
   "private": true,
   "scripts": {
     "codelaunch": "docker-compose exec codelaunch codelaunch",
-    "storybook": "docker-compose exec codelaunch npx start-storybook -p 3001",
     "test:build": "docker build --progress=$([ -n \"$DEBUG\" ] && echo 'plain' || echo 'auto') --build-arg ENV=testing --build-arg APPS=${APPS} -t $(echo ${npm_package_name} | sed 's/@//'):${npm_package_version}.$(git rev-parse --short HEAD)-TESTING .",
     "test:data": "docker run --rm -d -e POSTGRES_HOST_AUTH_METHOD=trust -p 5432:5432 --name $(echo ${npm_package_name}_postgres | sed 's/@//' | sed 's/\\//_/') postgres:12-alpine",
     "test:start": "touch .env && docker run --rm -it --env-file=.env -e VERBOSE=${VERBOSE:-} -e ENV=testing -e ABORT_ON=failed_migration -e DATABASE_SOURCE_URL=postgresql://postgres@$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(echo ${npm_package_name}_postgres | sed 's/@//' | sed 's/\\//_/')):5432/postgres -p 8080:3000 --name $(echo ${npm_package_name} | sed 's/@//' | sed 's/\\//_/')_codelaunch $(echo ${npm_package_name} | sed 's/@//'):${npm_package_version}.$(git rev-parse --short HEAD)-TESTING",
-    "build": "docker build --progress=$([ -n \"$DEBUG\" ] && echo 'plain' || echo 'auto') -t $(echo ${npm_package_name} | sed 's/@//'):${npm_package_version} .",
+    "test:stop": "docker kill $(echo ${npm_package_name}_codelaunch | sed 's/@//' | sed 's/\\//_/'); docker kill $(echo ${npm_package_name}_postgres | sed 's/@//' | sed 's/\\//_/')",
+    "ci:build": "docker build --progress=$([ -n \"$DEBUG\" ] && echo 'plain' || echo 'auto') -t $(echo ${npm_package_name} | sed 's/@//'):${npm_package_version} .",
     "rmi": "docker rmi $(docker images --format '{{.Repository}}:{{.Tag}}' $(echo ${npm_package_name} | sed 's/@//'))",
     "reset": "docker-compose down -v",
     "dc": "touch .env && docker-compose"

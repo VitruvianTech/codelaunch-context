@@ -26,3 +26,5 @@ nuxt.d.ts
 .npmrc
 platform.json
 apps/
+storybook/
+storybook-static
