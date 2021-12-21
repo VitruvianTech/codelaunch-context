@@ -1,0 +1,26 @@
+# CodeLaunch
+alembic.ini
+package-lock.json
+.DS_Store
+.git
+.env
+.npm
+.config
+.vscode
+*.log
+.codelaunch
+.nuxt
+.idea
+nuxt.d.ts
+.output
+.dockerignore
+.gitignore
+.editorconfig
+.gitlab-ci.yml
+platform.json
+node_modules/
+**/node_modules/
+apps/
+**/apps/
+docker-compose.yml
+Dockerfile

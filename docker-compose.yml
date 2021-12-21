@@ -1,0 +1,109 @@
+version: '3.7'
+
+
+#     ██████╗ ██████╗ ██████╗ ███████╗██╗      █████╗ ██╗   ██╗███╗   ██╗ ██████╗██╗  ██╗
+#    ██╔════╝██╔═══██╗██╔══██╗██╔════╝██║     ██╔══██╗██║   ██║████╗  ██║██╔════╝██║  ██║
+#    ██║     ██║   ██║██║  ██║█████╗  ██║     ███████║██║   ██║██╔██╗ ██║██║     ███████║
+#    ██║     ██║   ██║██║  ██║██╔══╝  ██║     ██╔══██║██║   ██║██║╚██╗██║██║     ██╔══██║
+#    ╚██████╗╚██████╔╝██████╔╝███████╗███████╗██║  ██║╚██████╔╝██║ ╚████║╚██████╗██║  ██║
+#     ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝╚═╝  ╚═╝
+
+services:
+
+  codelaunch:
+    depends_on:
+      - admin
+    build:
+      context: .
+      args:
+        ENV: development
+    stdin_open: true
+    tty: true
+    ports:
+      - "${VITE_PORT:-24678}:${VITE_PORT:-24678}"
+      - "${NITRO_PORT:-3000}:${NITRO_PORT:-3000}"
+      - "${STORYBOOK_PORT:-3001}:3001"
+    env_file:
+      - .env
+    environment:
+      ENV: development
+      VERBOSE: ${VERBOSE:-}
+      DEBUG: ${DEBUG:-graphile-build:warn,postgraphile:postgres:error} # Enable graphile debugging (https://www.graphile.org/postgraphile/debugging/#via-debug-envvar)
+      NITRO_PORT: ${NITRO_PORT:-3000}
+      VITE_PORT: ${VITE_PORT:-24678}
+      DATABASE_SOURCE_URL: postgresql://postgres@source/postgres
+      DATABASE_TARGET_URL: postgresql://postgres@target/postgres
+    volumes:
+      - /srv/codelaunch/node_modules
+      - ./.env:/srv/codelaunch/.env
+      - ./package.json:/srv/codelaunch/package.json
+      - ./context:/srv/codelaunch/context
+      ########################################################################################
+      # ============================== APPLICATION REGISTRATION ==============================
+      #
+      # 1. Add/clone/check out applications under host ./apps directory
+      # 2. Mount each application to container /srv/codelaunch/apps/${app} directory
+      # 3. $app can be any string; simple int incrementing is suggested (i.e.: 0, 1, 2...n)
+      # 4. Mounted subdirectory must be directly under /srv/codelaunch/apps
+      #    (i.e., /srv/codelaunch/apps/foo/bar not supported)
+      #
+      # Examples:
+      # - ./apps/example/foo:/srv/codelaunch/apps/0
+      # - ./apps/foo:/srv/codelaunch/apps/1
+      # - ./apps/foo/bar/baz:/srv/codelaunch/apps/2
+      #
+      ########################################################################################
+
+  source:
+    image: postgres:12-alpine
+    command:
+      - postgres
+      - "-c"
+      - work_mem=64MB
+      - "-c"
+      - max_connections=15
+      - "-c"
+      - shared_buffers=500MB
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - /var/lib/postgresql/data/
+    logging:
+        driver: "none"
+
+  target:
+    image: postgres:12-alpine
+    command:
+      - postgres
+      - "-c"
+      - log_min_messages=ERROR
+      - "-c"
+      - work_mem=64MB
+      - "-c"
+      - max_connections=15
+      - "-c"
+      - shared_buffers=500MB
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      PGDATA: /opt/postgresql/data
+    logging:
+        driver: "none"
+
+  admin:
+    depends_on:
+      - source
+      - target
+    image: dpage/pgadmin4
+    ports:
+      - "${PGADMIN_PORT:-3002}:80"
+    environment:
+      PGADMIN_CONFIG_MAX_LOGIN_ATTEMPTS: 0
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-postgres@codelaun.ch}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-1337}
+    logging:
+        driver: "none"
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+
+volumes:
+  pgadmin:
