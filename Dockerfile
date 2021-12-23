@@ -18,7 +18,7 @@ RUN chown -R node:node context ${APP_FILE:-apps.json} package.json
 USER node
 RUN if [ "$ENV" != 'development' ]; then \
       ABORT_ON=$ABORT_ON VERBOSE=1 codelaunch init ${APP_FILE:-apps.json} $APPS && \
-      [ "$ENV" == 'testing' ] && codelaunch storybook build; \
+      [ "$ENV" == 'testing' ] && codelaunch stories build; \
       codelaunch build && \
       rm -rf node_modules && \
       mv ~/node_modules node_modules && \
