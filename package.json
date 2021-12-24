@@ -16,7 +16,7 @@
     "test:stop": "docker kill $(echo ${npm_package_name}_codelaunch | sed 's/@//' | sed 's/\\//_/'); docker kill $(echo ${npm_package_name}_postgres | sed 's/@//' | sed 's/\\//_/')",
     "test:clean": "docker rmi $(docker images --format '{{.Repository}}:{{.Tag}}' $(echo ${npm_package_name} | sed 's/@//'))",
     "prod:build": "docker build --progress=$([ -n \"$DEBUG\" ] && echo 'plain' || echo 'auto') -t $(echo ${npm_package_name} | sed 's/@//'):${npm_package_version} .",
-    "teardown": "docker-compose down -v"
+    "destroy": "docker-compose down -v"
   },
   "dependencies": {}
 }

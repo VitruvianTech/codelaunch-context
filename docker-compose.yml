@@ -35,17 +35,22 @@ services:
       DATABASE_TARGET_URL: postgresql://postgres@target/postgres
     volumes:
       - /srv/codelaunch/node_modules
-      - ./.env:/srv/codelaunch/.env
       - ./package.json:/srv/codelaunch/package.json
       - ./context:/srv/codelaunch/context
+      - ./.env:/srv/codelaunch/.env
       ########################################################################################
-      # ============================== APPLICATION REGISTRATION ==============================
+      # =============================== MULTI-APP REGISTRATION ===============================
       #
+      # Notes:
       # 1. Add/clone/check out applications under host ./apps directory
       # 2. Mount each application to container /srv/codelaunch/apps/${app} directory
       # 3. $app can be any string; simple int incrementing is suggested (i.e.: 0, 1, 2...n)
       # 4. Mounted subdirectory must be directly under /srv/codelaunch/apps
       #    (i.e., /srv/codelaunch/apps/foo/bar not supported)
+      # 5. *DO NOT* mount ./apps directly to /srv/codelaunch/apps: CodeLaunch ships with a
+      #    "core" app that is already installed in the container's "apps" directory (and
+      #    would get overridden if mounting the entire ./apps directory)
+      # 6. For more information from our customer support, please run `yarn codelaunch info`
       #
       # Examples:
       # - ./apps/example/foo:/srv/codelaunch/apps/0
@@ -55,34 +60,18 @@ services:
       ########################################################################################
 
   source:
-    image: postgres:12-alpine
-    command:
-      - postgres
-      - "-c"
-      - work_mem=64MB
-      - "-c"
-      - max_connections=15
-      - "-c"
-      - shared_buffers=500MB
+    image: postgis/postgis:13-3.1-alpine
+    command: ["postgres", "-c", "work_mem=64MB", "-c", "max_connections=15", "-c", "shared_buffers=500MB"]
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
-    volumes:
-      - /var/lib/postgresql/data/
     logging:
         driver: "none"
+    volumes:
+      - /var/lib/postgresql/data/
 
   target:
-    image: postgres:12-alpine
-    command:
-      - postgres
-      - "-c"
-      - log_min_messages=ERROR
-      - "-c"
-      - work_mem=64MB
-      - "-c"
-      - max_connections=15
-      - "-c"
-      - shared_buffers=500MB
+    image: postgis/postgis:13-3.1-alpine
+    command: ["postgres", "-c", "work_mem=64MB", "-c", "max_connections=15", "-c", "shared_buffers=500MB"]
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
       PGDATA: /opt/postgresql/data
