@@ -35,8 +35,8 @@ services:
       DATABASE_TARGET_URL: postgresql://postgres@target/postgres
     volumes:
       - /srv/codelaunch/node_modules
-      - ./package.json:/srv/codelaunch/package.json
       - ./context:/srv/codelaunch/context
+      - ./package.json:/srv/codelaunch/package.json
       - ./.env:/srv/codelaunch/.env
       ########################################################################################
       # =============================== MULTI-APP REGISTRATION ===============================
@@ -60,17 +60,17 @@ services:
       ########################################################################################
 
   source:
-    image: postgis/postgis:13-3.1-alpine
+    image: vitruviantech/postgis:13-master
     command: ["postgres", "-c", "work_mem=64MB", "-c", "max_connections=15", "-c", "shared_buffers=500MB"]
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
     logging:
         driver: "none"
     volumes:
-      - /var/lib/postgresql/data/
+      - /var/lib/postgresql/data
 
   target:
-    image: postgis/postgis:13-3.1-alpine
+    image: vitruviantech/postgis:13-master
     command: ["postgres", "-c", "work_mem=64MB", "-c", "max_connections=15", "-c", "shared_buffers=500MB"]
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
