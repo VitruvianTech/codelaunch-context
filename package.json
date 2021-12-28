@@ -1,6 +1,6 @@
 {
-  "name": "",
-  "version": "",
+  "name": "Enter project scope and name (i.e., @my/project), and optionally change version and other details (for PWA) below.",
+  "version": "0.1.0-pre.1",
   "canonical": "CodeLaunch™",
   "theme": "#292929",
   "homepage": "https://codelaunch.site",
@@ -12,12 +12,12 @@
     "start:reset": "docker-compose up -V --force-recreate",
     "stop": "docker-compose stop",
     "logs": "docker-compose logs -f --tail 20",
-    "test:build": "docker build --progress=$([ -n \"$DEBUG\" ] && echo 'plain' || echo 'auto') --build-arg ENV=testing --build-arg APPS=${APPS} -t $(echo ${npm_package_name} | sed 's/@//'):${npm_package_version}.$(git rev-parse --short HEAD)-TESTING .",
+    "test:build": "docker build --progress=$([ -n \"$VERBOSE\" ] && echo 'plain' || echo 'auto') --build-arg APPS=${APPS} --build-arg DEBUG=${DEBUG} --build-arg ENV=testing -t $(echo ${npm_package_name} | sed 's/@//'):${npm_package_version}.$(git rev-parse --short HEAD)-$([ -n \"$DEBUG\" ] && echo 'DEBUG' || echo 'TESTING') .",
     "test:data": "docker run --rm -d -e POSTGRES_HOST_AUTH_METHOD=trust -p 5432:5432 --name $(echo ${npm_package_name}_postgres | sed 's/@//' | sed 's/\\//_/') vitruviantech/postgis:13-master",
-    "test:start": "touch .env && docker run --rm -it --env-file=.env -e VERBOSE=${VERBOSE:-} -e ENV=testing -e ABORT_ON=failed_migration -e DATABASE_SOURCE_URL=postgresql://postgres@$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(echo ${npm_package_name}_postgres | sed 's/@//' | sed 's/\\//_/')):5432/postgres -p 8080:3000 --name $(echo ${npm_package_name} | sed 's/@//' | sed 's/\\//_/')_codelaunch $(echo ${npm_package_name} | sed 's/@//'):${npm_package_version}.$(git rev-parse --short HEAD)-TESTING",
+    "test:start": "touch .env && docker run --rm -it --env-file=.env -e VERBOSE=${VERBOSE:-} -e ENV=testing -e ABORT_ON=failed_migration -e DATABASE_SOURCE_URL=postgresql://postgres@$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(echo ${npm_package_name}_postgres | sed 's/@//' | sed 's/\\//_/')):5432/postgres -p 8080:3000 --name $(echo ${npm_package_name} | sed 's/@//' | sed 's/\\//_/')_codelaunch $(echo ${npm_package_name} | sed 's/@//'):${npm_package_version}.$(git rev-parse --short HEAD)-$([ -n \"$DEBUG\" ] && echo 'DEBUG' || echo 'TESTING')",
     "test:stop": "docker kill $(echo ${npm_package_name}_codelaunch | sed 's/@//' | sed 's/\\//_/'); docker kill $(echo ${npm_package_name}_postgres | sed 's/@//' | sed 's/\\//_/')",
     "test:clean": "docker rmi $(docker images --format '{{.Repository}}:{{.Tag}}' $(echo ${npm_package_name} | sed 's/@//'))",
-    "prod:build": "docker build --progress=$([ -n \"$DEBUG\" ] && echo 'plain' || echo 'auto') -t $(echo ${npm_package_name} | sed 's/@//'):${npm_package_version} .",
+    "prod:build": "docker build --progress=$([ -n \"$VERBOSE\" ] && echo 'plain' || echo 'auto') -t $(echo ${npm_package_name} | sed 's/@//'):${npm_package_version} .",
     "destroy": "docker-compose down -v"
   },
   "dependencies": {}
