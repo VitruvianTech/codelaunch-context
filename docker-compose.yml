@@ -36,6 +36,7 @@ services:
     volumes:
       - /srv/codelaunch/node_modules
       - ./context:/srv/codelaunch/context
+      - ./config.ts:/srv/codelaunch/config.ts
       - ./package.json:/srv/codelaunch/package.json
       - ./.env:/srv/codelaunch/.env
       ########################################################################################
