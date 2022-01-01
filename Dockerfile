@@ -11,11 +11,12 @@ WORKDIR /srv/codelaunch
 COPY .npmrc* .npmrc
 COPY context* context
 COPY apps.json* apps.json
-COPY config.ts config.ts
+COPY config.ts* config.ts
+COPY tsconfig.json* types.json
 COPY package.json package.json
 RUN mkdir -p context; \
     touch ${APP_FILE:-apps.json}; \
-    chown -R node:node context ${APP_FILE:-apps.json} config.ts package.json
+    chown -R node:node context ${APP_FILE:-apps.json} config.ts types.json package.json
 
 USER node
 RUN if [ "$ENV" != 'development' ]; then \
