@@ -1,13 +1,14 @@
 ARG VERSION
+FROM vitruviantech/codelaunch:${VERSION:-latest}
+
+WORKDIR /srv/codelaunch
+
 ARG ENV
 ARG APPS
 ARG APP_FILE
 ARG SKIP_APP_FILE
 ARG ABORT_ON
 
-FROM vitruviantech/codelaunch:${VERSION:-latest}
-
-WORKDIR /srv/codelaunch
 COPY .npmrc* .npmrc
 COPY context* context
 COPY apps.json* apps.json
