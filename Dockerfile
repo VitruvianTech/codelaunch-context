@@ -13,11 +13,12 @@ COPY .npmrc* .npmrc
 COPY context* context
 COPY apps.json* apps.json
 COPY config.ts* config.ts
-COPY tsconfig.json* types.json
+COPY tsconfig.json* types.
+COPY codegen.yml* codegen.yml
 COPY package.json package.json
 RUN mkdir -p context; \
     touch ${APP_FILE:-apps.json}; \
-    chown -R node:node context ${APP_FILE:-apps.json} config.ts types.json package.json
+    chown -R node:node context ${APP_FILE:-apps.json} config.ts types.json codegen.yml package.json
 
 USER node
 RUN if [ "$ENV" != 'development' ]; then \
