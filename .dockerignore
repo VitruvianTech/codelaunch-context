@@ -1,6 +1,6 @@
 # CodeLaunch
-alembic.ini
-package-lock.json
+/alembic.ini
+/package-lock.json
 .DS_Store
 .git
 .env
@@ -17,7 +17,7 @@ nuxt.d.ts
 .gitignore
 .editorconfig
 .gitlab-ci.yml
-platform.json
+/platform.json
 node_modules/
 **/node_modules/
 **/__pycache__/
@@ -27,3 +27,5 @@ docker-compose.yml
 Dockerfile
 **/storybook/
 storybook-static
+codegen.yml
+tsextends.json

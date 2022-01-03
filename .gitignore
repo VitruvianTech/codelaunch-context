@@ -1,5 +1,5 @@
 # CodeLaunch
-alembic.ini
+/alembic.ini
 .DS_Store
 node_modules
 .env
@@ -28,3 +28,6 @@ platform.json
 apps/
 storybook/
 storybook-static
+types.json
+codegen.yml
+tsextends.json
