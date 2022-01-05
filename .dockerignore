@@ -1,6 +1,5 @@
 # CodeLaunch
 /alembic.ini
-/package-lock.json
 .DS_Store
 .git
 .env
@@ -27,5 +26,6 @@ docker-compose.yml
 Dockerfile
 **/storybook/
 storybook-static
-codegen.yml
-tsextends.json
+/tsextends.json
+/package-lock.json
+context/assets/graphql/*.graphql

@@ -28,7 +28,7 @@ services:
     environment:
       ENV: development
       VERBOSE: ${VERBOSE:-}
-      DEBUG: ${DEBUG:-graphile-build:warn,postgraphile:postgres:error} # Graphile debugging (https://www.graphile.org/postgraphile/debugging/#via-debug-envvar)
+      DEBUG: ${DEBUG:-graphile-build:warn,postgraphile:postgres:error}  # Postgraphile debugging (https://www.graphile.org/postgraphile/debugging/#via-debug-envvar)
       NITRO_PORT: ${NITRO_PORT:-3000}
       VITE_PORT: ${VITE_PORT:-24678}
       DATABASE_SOURCE_URL: postgresql://postgres@source/postgres
@@ -38,11 +38,11 @@ services:
       - ./context:/srv/codelaunch/context
       - ./codelaunch.ts:/srv/codelaunch/codelaunch.ts
       - ./tsconfig.json:/srv/codelaunch/tsextends.json
-      - ./graphql.yml:/srv/codelaunch/graphql.yml
+      - ./codegen.yml:/srv/codelaunch/codegen.yml
       - ./package.json:/srv/codelaunch/package.json
       - ./.env:/srv/codelaunch/.env
       ########################################################################################
-      # =============================== MULTI-APP REGISTRATION ===============================
+      # ============================ MULTI-REPO APP REGISTRATION =============================
       #
       # Notes:
       # 1. Add/clone/check out applications under host ./apps directory

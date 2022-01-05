@@ -1,0 +1,41 @@
+# https://www.graphql-code-generator.com/docs/config-reference/codegen-config
+
+schema:
+  - 'http://localhost:3000/gql'
+
+  # Example token authentication (mind the indentation at 'headers'):
+  #
+  # - 'http://localhost:3000/gql':
+  #     headers:
+  #       Authorization: ${TOKEN}
+
+  # Add additional schemas/GraphQL sources here, i.e.:
+  #
+  # - 'https://rickandmortyapi.com/graphql'
+  #
+  # And update codelaunch.ts `graphql` config appropriately, as well, so that
+  # the runtime can actually route the GraphQL network call for the schema
+
+errorsOnly: true
+
+generates:
+  context/assets/graphql/schema.graphql:
+    plugins:
+      - schema-ast
+  context/assets/graphql/schema.json:
+    schema: 'context/assets/graphql/schema.graphql'
+    plugins:
+      - urql-introspection
+  context/assets/graphql/index.ts:
+    schema: 'context/assets/graphql/schema.graphql'
+    documents: ./**/graphql/**/*.gql
+    config:
+      gqlImport: '@urql/vue#gql'
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-resolvers
+      - named-operations-object
+      - typescript-vue-urql
+      - typescript-urql-graphcache
+      - typescript-document-nodes

@@ -28,6 +28,5 @@ platform.json
 apps/
 storybook/
 storybook-static
-types.json
-codegen.yml
-tsextends.json
+/tsextends.json
+context/assets/graphql/*.graphql
