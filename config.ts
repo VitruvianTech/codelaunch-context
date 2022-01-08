@@ -1,6 +1,8 @@
 // For details on Nuxt3 configuration, see https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default {
+
   publicRuntimeConfig: {
+
     // For details on graphql configuration, see https://codelaunch.dev/configuration#graphql
     graphql: {
       url: process.env.GQL_URL,
@@ -16,6 +18,15 @@ export default {
           ]
         }
       }
+    },
+
+    // For details on auth configuration, see https://codelaunch.dev/configuration#auth
+    auth: {
+      domain:   '', // Auth0 domain
+      clientId: '', // Auth0 client ID
+      audience: ''  // Auth0 audience (Dashboard > APIs)
     }
+
   }
+
 }
