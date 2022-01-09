@@ -7,7 +7,7 @@ schema:
   #
   # - 'http://localhost:3000/gql':
   #     headers:
-  #       Authorization: ${TOKEN}
+  #       Authorization: Bearer ${TOKEN}
 
   # Add additional schemas/GraphQL sources here, i.e.:
   #

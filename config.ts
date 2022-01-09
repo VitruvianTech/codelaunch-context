@@ -22,9 +22,11 @@ export default {
 
     // For details on auth configuration, see https://codelaunch.dev/configuration#auth
     auth: {
-      domain:   '', // Auth0 domain
-      clientId: '', // Auth0 client ID
-      audience: ''  // Auth0 audience (Dashboard > APIs)
+      domain:       process.env.AUTH0_DOMAIN || '',         // Auth0 domain
+      audience:     process.env.AUTH0_AUDIENCE || '',       // Auth0 audience (Dashboard > APIs)
+      clientId:     process.env.AUTH0_CLIENT_ID || '',      // Auth0 client ID
+      apiAudience:  process.env.AUTH0_API_AUDIENCE || '',   // Auth0 Management API client ID (Dashboard > APIs > Auth0 Management API > Test)
+      apiClientId:  process.env.AUTH0_API_CLIENT_ID || ''   // Auth0 Management API client ID (Dashboard > APIs > Auth0 Management API > Test)
     }
 
   }

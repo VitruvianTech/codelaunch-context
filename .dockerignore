@@ -20,7 +20,6 @@ nuxt.d.ts
 node_modules/
 **/node_modules/
 **/__pycache__/
-apps/
 **/apps/
 docker-compose.yml
 Dockerfile
@@ -29,3 +28,4 @@ storybook-static
 /tsextends.json
 /package-lock.json
 context/assets/graphql/*.graphql
+apps/
