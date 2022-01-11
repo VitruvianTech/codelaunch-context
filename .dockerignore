@@ -28,4 +28,7 @@ storybook-static
 /tsextends.json
 /package-lock.json
 context/assets/graphql/*.graphql
+
+# Comment-out for mono-repo behavior
+# (and COPY each app in Dockerfile)
 apps/

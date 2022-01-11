@@ -5,7 +5,6 @@ export default {
 
     // For details on graphql configuration, see https://codelaunch.dev/configuration#graphql
     graphql: {
-      url: process.env.GQL_URL,
       idbName: `${process.env.CONTEXT_NAME}-v1`,
       idbNameTesting: `${process.env.CONTEXT_NAME}-v1-TESTING`,
       idbMaxAge: 14,
@@ -22,11 +21,11 @@ export default {
 
     // For details on auth configuration, see https://codelaunch.dev/configuration#auth
     auth: {
-      domain:       process.env.AUTH0_DOMAIN || '',         // Auth0 domain
-      audience:     process.env.AUTH0_AUDIENCE || '',       // Auth0 audience (Dashboard > APIs)
-      clientId:     process.env.AUTH0_CLIENT_ID || '',      // Auth0 client ID
-      apiAudience:  process.env.AUTH0_API_AUDIENCE || '',   // Auth0 Management API client ID (Dashboard > APIs > Auth0 Management API > Test)
-      apiClientId:  process.env.AUTH0_API_CLIENT_ID || ''   // Auth0 Management API client ID (Dashboard > APIs > Auth0 Management API > Test)
+      domain:       '', // Auth0 application domain (Dashboard > Applications > YOUR_SPA_APPLICATION)
+      clientId:     '', // Auth0 application client ID (Dashboard > Applications > YOUR_SPA_APPLICATION)
+      audience:     '', // Auth0 API audience (Dashboard > APIs > YOUR_CUSTOM_API)
+      apiClientId:  '', // Auth0 Management API client ID (Dashboard > APIs > "Auth0 Management API" > Test)
+      apiAudience:  ''  // Auth0 Management API audience (Dashboard > APIs > "Auth0 Management API" > Test)
     }
 
   }

@@ -29,4 +29,6 @@ storybook/
 storybook-static
 /tsextends.json
 context/assets/graphql/*.graphql
+
+# Comment-out for mono-repo behavior
 apps/
