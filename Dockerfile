@@ -23,7 +23,7 @@ USER node
 RUN if [ "$ENV" != 'development' ]; then \
       SKIP_APP_FILE=${SKIP_APP_FILE} ABORT_ON=$ABORT_ON VERBOSE=1 codelaunch init ${APP_FILE:-apps.json} $APPS && \
       [ "$ENV" == 'testing' ] && codelaunch stories build; \
-      codelaunch build && \
+      ENV=${ENV:-production} codelaunch build && \
       rm -rf node_modules && \
       mv ~/node_modules node_modules && \
       rm -f .npmrc; \

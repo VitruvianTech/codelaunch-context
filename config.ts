@@ -3,8 +3,11 @@ export default {
 
   publicRuntimeConfig: {
 
+    env: process.env.ENV,
+
     // For details on graphql configuration, see https://codelaunch.dev/configuration#graphql
     graphql: {
+      url: undefined,
       idbName: `${process.env.CONTEXT_NAME}-v1`,
       idbNameTesting: `${process.env.CONTEXT_NAME}-v1-TESTING`,
       idbMaxAge: 14,
@@ -20,12 +23,28 @@ export default {
     },
 
     // For details on auth configuration, see https://codelaunch.dev/configuration#auth
-    auth: {
-      domain:       '', // Auth0 application domain (Dashboard > Applications > YOUR_SPA_APPLICATION)
-      clientId:     '', // Auth0 application client ID (Dashboard > Applications > YOUR_SPA_APPLICATION)
-      audience:     '', // Auth0 API audience (Dashboard > APIs > YOUR_CUSTOM_API)
-      apiClientId:  '', // Auth0 Management API client ID (Dashboard > APIs > "Auth0 Management API" > Test)
-      apiAudience:  ''  // Auth0 Management API audience (Dashboard > APIs > "Auth0 Management API" > Test)
+    auth: ({
+      development: {
+        domain:       '', // Auth0 application domain (Dashboard > Applications > YOUR_SPA_APPLICATION)
+        clientId:     '', // Auth0 application client ID (Dashboard > Applications > YOUR_SPA_APPLICATION)
+        audience:     '', // Auth0 API audience (Dashboard > APIs > YOUR_CUSTOM_API)
+        apiClientId:  '', // Auth0 Management API client ID (Dashboard > APIs > "Auth0 Management API" > Test)
+        apiAudience:  '', // Auth0 Management API audience (Dashboard > APIs > "Auth0 Management API" > Test)
+      },
+      testing: {
+        domain:       '',
+        clientId:     '',
+        audience:     '',
+        apiClientId:  '',
+        apiAudience:  '',
+      }
+    })[process.env.ENV] || {
+      // Default auth configuration (i.e., production config)
+      domain:       '',
+      clientId:     '',
+      audience:     '',
+      apiClientId:  '',
+      apiAudience:  '',
     }
 
   }
