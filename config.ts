@@ -10,11 +10,6 @@ export default {
       host: process.env.API_HOST || ''
     },
 
-    // For details on job configuration, see https://codelaunch.dev/configuration#job
-    job: {
-      host: process.env.JOB_HOST || ''
-    },
-
     // For details on graphql configuration, see https://codelaunch.dev/configuration#graphql
     gql: {
       host: process.env.GQL_HOST || '',

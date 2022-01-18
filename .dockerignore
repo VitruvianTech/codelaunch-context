@@ -10,6 +10,7 @@
 .codelaunch
 .nuxt
 .idea
+tmp
 nuxt.d.ts
 .output
 .dockerignore

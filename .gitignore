@@ -19,6 +19,7 @@ pnpm-debug.log*
 *.log
 .codelaunch
 .nuxt
+tmp
 /dist
 __pycache__/
 nuxt.d.ts
