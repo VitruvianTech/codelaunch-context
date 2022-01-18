@@ -5,24 +5,29 @@ export default {
 
     env: process.env.ENV,
 
-    // For details on api configuration, see https://codelaunch.dev/configuration#api
+    // For details on graphql configuration, see https://codelaunch.dev/configuration#api
     api: {
-      host: undefined
+      host: process.env.API_HOST || ''
+    },
+
+    // For details on job configuration, see https://codelaunch.dev/configuration#job
+    job: {
+      host: process.env.JOB_HOST || ''
     },
 
     // For details on graphql configuration, see https://codelaunch.dev/configuration#graphql
     gql: {
-      host: undefined,
+      host: process.env.GQL_HOST || '',
       idbName: `${process.env.CONTEXT_NAME}-v1`,
       idbNameTesting: `${process.env.CONTEXT_NAME}-v1-TESTING`,
       idbMaxAge: 14,
       idbMaxAgeTesting: 7,
       exchanges: {
         routerExchange: {
-          operations: [{
-            name: /^RickAndMorty.*/,
-            url: 'https://rickandmortyapi.com/graphql'
-          }]
+          operations: [
+            // Example adding an additional GraphQL source, by GQL document object name regex:
+            // { name: /^RickAndMorty.*/, url: 'https://rickandmortyapi.com/graphql' }
+          ]
         }
       }
     },
@@ -30,18 +35,18 @@ export default {
     // For details on auth configuration, see https://codelaunch.dev/configuration#auth
     auth: ({
       development: {
-        domain: 'dev-inw25gf0.auth0.com',
-        clientId: 'cJMGA9Wr4fHz1C2o5U88ceKXnhrpryd8',
-        audience: 'https://codelaunch.app/api/v1/',
-        apiClientId: 'hlnzT7rHtHhLSAN4i6Ws4SsY58DeLA1Y',
-        apiAudience: 'https://dev-inw25gf0.auth0.com/api/v2/',
+        domain:       '', // Auth0 application domain (Dashboard > Applications > YOUR_SPA_APPLICATION)
+        clientId:     '', // Auth0 application client ID (Dashboard > Applications > YOUR_SPA_APPLICATION)
+        audience:     '', // Auth0 API audience (Dashboard > APIs > YOUR_CUSTOM_API)
+        apiClientId:  '', // Auth0 Management API client ID (Dashboard > APIs > "Auth0 Management API" > Test)
+        apiAudience:  '', // Auth0 Management API audience (Dashboard > APIs > "Auth0 Management API" > Test)
       },
       testing: {
-        domain: 'dev-inw25gf0.auth0.com',
-        clientId: 'cJMGA9Wr4fHz1C2o5U88ceKXnhrpryd8',
-        audience: 'https://codelaunch.app/api/v1/',
-        apiClientId: 'hlnzT7rHtHhLSAN4i6Ws4SsY58DeLA1Y',
-        apiAudience: 'https://dev-inw25gf0.auth0.com/api/v2/',
+        domain:       '',
+        clientId:     '',
+        audience:     '',
+        apiClientId:  '',
+        apiAudience:  '',
       }
     })[process.env.ENV] || {
       // Default auth configuration (i.e., production config)
