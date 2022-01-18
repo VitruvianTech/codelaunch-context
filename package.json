@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "codelaunch": "docker-compose exec codelaunch codelaunch",
-    "codegen": "docker-compose exec codelaunch npx graphql-codegen",
+    "package": "docker-compose exec codelaunch npm",
     "start": "touch .env && docker-compose up --force-recreate",
     "start:reset": "docker-compose up -V --force-recreate",
     "stop": "docker-compose stop",
