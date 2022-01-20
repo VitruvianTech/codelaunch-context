@@ -4,6 +4,8 @@ FROM vitruviantech/codelaunch:${VERSION:-latest}
 WORKDIR /srv/codelaunch
 
 ARG ENV
+ARG GQL_HOST
+ARG API_HOST
 ARG APPS
 ARG APP_FILE
 ARG SKIP_APP_FILE
@@ -23,7 +25,7 @@ USER node
 RUN if [ "$ENV" != 'development' ]; then \
       SKIP_APP_FILE=${SKIP_APP_FILE} ABORT_ON=$ABORT_ON VERBOSE=1 codelaunch init ${APP_FILE:-apps.json} $APPS && \
       [ "$ENV" == 'testing' ] && codelaunch stories build; \
-      ENV=${ENV:-production} codelaunch build && \
+      GQL_HOST=${GQL_HOST} API_HOST=${API_HOST} ENV=${ENV:-production} codelaunch build && \
       rm -rf node_modules && \
       mv ~/node_modules node_modules && \
       rm -f .npmrc; \
