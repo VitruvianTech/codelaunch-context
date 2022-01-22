@@ -13,6 +13,7 @@ services:
   codelaunch:
     depends_on:
       - admin
+      - queue
     build:
       context: .
       args:
@@ -33,6 +34,7 @@ services:
       VITE_PORT: ${VITE_PORT:-24678}
       DATABASE_SOURCE_URL: postgresql://postgres@source/postgres
       DATABASE_TARGET_URL: postgresql://postgres@target/postgres
+      QUEUE_URL: queue
     volumes:
       - /srv/codelaunch/node_modules
       - ./context:/srv/codelaunch/context
@@ -96,6 +98,14 @@ services:
         driver: "none"
     volumes:
       - pgadmin:/var/lib/pgadmin
+
+  queue:
+    image: redis:alpine
+    command: redis-server --loglevel warning
+    logging:
+        driver: "none"
+    volumes:
+      - /data
 
 volumes:
   pgadmin:
