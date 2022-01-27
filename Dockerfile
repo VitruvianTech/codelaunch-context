@@ -19,7 +19,7 @@ COPY tsconfig.json* tsextends.json
 COPY jobs.json jobs.json
 COPY codegen.yml* codegen.yml
 COPY package.json package.json
-RUN [ ! -f "${APP_FILE:-apps.json}" ] && echo "{}" > ${APP_FILE:-apps.json}; \
+RUN [ ! -f "${APP_FILE:-apps.json}" ] && echo "[]" > ${APP_FILE:-apps.json}; \
     chown -R node:node context ${APP_FILE:-apps.json} config.ts tsextends.json jobs.json codegen.yml package.json
 
 USER node
