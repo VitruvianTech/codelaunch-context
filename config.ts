@@ -52,6 +52,10 @@ export default {
       apiAudience:    ''
     }
 
+  },
+
+  io: {
+    server: { teardown: false }
   }
 
 }
