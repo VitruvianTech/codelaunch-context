@@ -5,12 +5,12 @@ export default {
 
     env: process.env.ENV,
 
-    // For details on graphql configuration, see https://codelaunch.dev/configuration#api
+    // For details on API configuration, see https://codelaunch.dev/config#api
     api: {
       host: process.env.API_HOST || ''
     },
 
-    // For details on graphql configuration, see https://codelaunch.dev/configuration#graphql
+    // For details on GraphQL configuration, see https://codelaunch.dev/config#gql
     gql: {
       host: process.env.GQL_HOST || '',
       idbName: `${process.env.CONTEXT_NAME}-v1`,
@@ -27,29 +27,30 @@ export default {
       }
     },
 
-    // For details on auth0 configuration, see https://codelaunch.dev/configuration#auth0
-    auth0: ({
-      development: {
-        domain:       '', // Auth0 application domain (Dashboard > Applications > YOUR_SPA_APPLICATION)
-        clientId:     '', // Auth0 application client ID (Dashboard > Applications > YOUR_SPA_APPLICATION)
-        audience:     '', // Auth0 API audience (Dashboard > APIs > YOUR_CUSTOM_API)
-        apiClientId:  '', // Auth0 Management API client ID (Dashboard > APIs > "Auth0 Management API" > Test)
-        apiAudience:  ''  // Auth0 Management API audience (Dashboard > APIs > "Auth0 Management API" > Test)
-      },
-      testing: {
-        domain:       '',
-        clientId:     '',
-        audience:     '',
-        apiClientId:  '',
-        apiAudience:  ''
-      }
-    })[process.env.ENV] || {
-      // Default auth configuration (i.e., production config)
-      domain:         '',
-      clientId:       '',
-      audience:       '',
-      apiClientId:    '',
-      apiAudience:    ''
+    // For details on Auth0 configuration, see https://codelaunch.dev/config#auth0
+    auth0: {
+      // Default configuration (i.e., production)
+      domain:           '', // Auth0 application domain (Dashboard > Applications > YOUR_SPA_APPLICATION)
+      clientId:         '', // Auth0 application client ID (Dashboard > Applications > YOUR_SPA_APPLICATION)
+      audience:         '', // Auth0 API audience (Dashboard > APIs > YOUR_CUSTOM_API)
+      apiClientId:      '', // Auth0 Management API client ID (Dashboard > APIs > "Auth0 Management API" > Test)
+      apiAudience:      '', // Auth0 Management API audience (Dashboard > APIs > "Auth0 Management API" > Test)
+      ...({
+        development: {
+          domain:       '',
+          clientId:     '',
+          audience:     '',
+          apiClientId:  '',
+          apiAudience:  ''
+        },
+        testing: {
+          domain:       '',
+          clientId:     '',
+          audience:     '',
+          apiClientId:  '',
+          apiAudience:  ''
+        }
+      })[process.env.ENV] || {}
     }
 
   },
