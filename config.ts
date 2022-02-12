@@ -32,6 +32,7 @@ export default {
       audience:         '', // Auth0 API audience (Dashboard > APIs > YOUR_CUSTOM_API)
       apiClientId:      '', // Auth0 Management API client ID (Dashboard > APIs > "Auth0 Management API" > Test)
       apiAudience:      '', // Auth0 Management API audience (Dashboard > APIs > "Auth0 Management API" > Test)
+      syncHandler:      '', // Local API route to invoke upon every Auth0 permissions check/update (without `/api/` prefix)
       ...({
         development: {
           domain:       '',
