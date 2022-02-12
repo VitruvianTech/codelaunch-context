@@ -12,11 +12,8 @@ export default {
 
     // For details on GraphQL configuration, see https://codelaunch.dev/config#gql
     gql: {
-      host: process.env.GQL_HOST || '',
       idbName: `${process.env.CONTEXT_NAME}-v1`,
-      idbNameTesting: `${process.env.CONTEXT_NAME}-v1-TESTING`,
       idbMaxAge: 14,
-      idbMaxAgeTesting: 7,
       exchanges: {
         routerExchange: {
           operations: [
