@@ -14,6 +14,7 @@ export default {
     gql: {
       idbName: `${process.env.CONTEXT_NAME}-v1`,
       idbMaxAge: 14,
+      generateSchemaOnDBUpdate: false,
       exchanges: {
         routerExchange: {
           operations: [
