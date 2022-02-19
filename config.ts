@@ -1,6 +1,8 @@
 // For details on Nuxt3 configuration, see https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default {
 
+  css: [],
+
   publicRuntimeConfig: {
 
     env: process.env.ENV,

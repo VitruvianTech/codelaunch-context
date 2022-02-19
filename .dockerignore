@@ -1,5 +1,4 @@
 # CodeLaunch
-/alembic.ini
 .DS_Store
 .git
 .env
@@ -24,7 +23,8 @@ node_modules/
 **/apps/
 docker-compose.yml
 Dockerfile
-**/storybook/
+/alembic.ini
+/.storybook/preview.js
 storybook-static
 /tsextends.json
 /package-lock.json

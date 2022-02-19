@@ -26,7 +26,7 @@ nuxt.d.ts
 .output
 .npmrc
 platform.json
-storybook/
+/.storybook/preview.js
 storybook-static
 /tsextends.json
 context/assets/graphql/*.graphql
