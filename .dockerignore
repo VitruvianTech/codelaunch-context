@@ -25,6 +25,7 @@ docker-compose.yml
 Dockerfile
 /alembic.ini
 /.storybook/preview.js
+**/public/storybook/
 storybook-static
 /tsextends.json
 /package-lock.json

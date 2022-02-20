@@ -28,6 +28,7 @@ nuxt.d.ts
 platform.json
 /.storybook/preview.js
 storybook-static
+public/storybook/
 /tsextends.json
 context/assets/graphql/*.graphql
 
