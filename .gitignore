@@ -24,8 +24,10 @@ tmp
 __pycache__/
 nuxt.d.ts
 .output
+output
 .npmrc
-platform.json
+npmrc
+/platform.json
 /.storybook/preview.js
 storybook-static
 public/storybook/
