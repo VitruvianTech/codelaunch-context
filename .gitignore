@@ -20,17 +20,16 @@ pnpm-debug.log*
 .codelaunch
 .nuxt
 tmp
-/dist
+dist/
 __pycache__/
 nuxt.d.ts
 .output
 output
 .npmrc
-npmrc
-/platform.json
+npm.rc
 /.storybook/preview.js
 storybook-static
-public/storybook/
+context/public/storybook/
 /tsextends.json
 context/assets/graphql/*.graphql
 

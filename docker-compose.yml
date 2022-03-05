@@ -39,7 +39,7 @@ services:
       - ./tsconfig.json:/srv/codelaunch/tsextends.json
       - ./codegen.yml:/srv/codelaunch/codegen.yml
       - ./jobs.json:/srv/codelaunch/jobs.json
-      - ./package.json:/srv/codelaunch/package.json
+      - ./package.json:/srv/codelaunch/context.json
       - ./.env:/srv/codelaunch/.env
       ########################################################################################
       # ============================ MULTI-REPO APP REGISTRATION =============================
