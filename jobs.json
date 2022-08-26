@@ -1,0 +1,6 @@
+{
+  "SendMail": {
+    "handler": "apps/@codelaunch/app/mail/send",
+    "interval": 600
+  }
+}
