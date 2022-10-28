@@ -14,13 +14,14 @@ services:
     depends_on:
       - admin
       - queue
-    image: registry.gitlab.com/vitruviantech/codelaunch/platform:${VERSION:-1.0.0-beta.9}
+    image: registry.gitlab.com/vitruviantech/codelaunch/platform:${VERSION:-1.0.0-beta.10}
     # tty: true
     stdin_open: true
     ports:
       - "${PORT:-3000}:${PORT:-3000}"
-      - "${DEV_PORT:-24678}:${DEV_PORT:-24678}"
       - "${LIBRARY_PORT:-3001}:3001"
+      - "${GQL_WS_PORT:-4000}:${GQL_WS_PORT:-4000}"
+      - "${DEV_PORT:-24678}:${DEV_PORT:-24678}"
     env_file:
       - .env
     environment:
@@ -28,6 +29,7 @@ services:
       VERBOSE: ${VERBOSE:-}
       DEBUG: ${DEBUG:-graphile-build:warn,postgraphile:postgres:error}  # Postgraphile debugging (https://www.graphile.org/postgraphile/debugging/#via-debug-envvar)
       PORT: ${PORT:-3000}
+      GQL_WS_PORT: ${GQL_WS_PORT:-4000}
       DEV_PORT: ${DEV_PORT:-24678}
       DATABASE_SOURCE_URL: postgresql://postgres@source/postgres
       DATABASE_TARGET_URL: postgresql://postgres@target/postgres

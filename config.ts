@@ -18,7 +18,8 @@ export default {
     // For details on GraphQL configuration, see https://codelaunch.dev/config#gql
     gql: {
       ttl: 60 * 1000,
-      idbName: `${process.env.CONTEXT_NAME}-v1`,
+      idbName: process.env.CONTEXT_NAME,
+      idbVersion: process.env.CONTEXT_VERSION,
       idbMaxAge: 14,
       generateSchemaOnDBUpdate: false,
       exchanges: {
