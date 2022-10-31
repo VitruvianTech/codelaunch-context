@@ -14,13 +14,12 @@ services:
     depends_on:
       - admin
       - queue
-    image: registry.gitlab.com/vitruviantech/codelaunch/platform:${VERSION:-1.0.0-beta.10}
+    image: ${IMAGE:-registry.gitlab.com/vitruviantech/codelaunch/platform}:${VERSION:-2022.0.0-beta.10}
     # tty: true
     stdin_open: true
     ports:
-      - "${PORT:-3000}:${PORT:-3000}"
+      - "${PORT:-3000}:80"
       - "${LIBRARY_PORT:-3001}:3001"
-      - "${GQL_WS_PORT:-4000}:${GQL_WS_PORT:-4000}"
       - "${DEV_PORT:-24678}:${DEV_PORT:-24678}"
     env_file:
       - .env
@@ -29,13 +28,13 @@ services:
       VERBOSE: ${VERBOSE:-}
       DEBUG: ${DEBUG:-graphile-build:warn,postgraphile:postgres:error}  # Postgraphile debugging (https://www.graphile.org/postgraphile/debugging/#via-debug-envvar)
       PORT: ${PORT:-3000}
-      GQL_WS_PORT: ${GQL_WS_PORT:-4000}
       DEV_PORT: ${DEV_PORT:-24678}
       DATABASE_SOURCE_URL: postgresql://postgres@source/postgres
       DATABASE_TARGET_URL: postgresql://postgres@target/postgres
       QUEUE_URL: queue
     volumes:
       - /srv/codelaunch/node_modules
+      - ./.env:/srv/codelaunch/.env
       - ./context:/srv/codelaunch/context
       - ./config.ts:/srv/codelaunch/config.ts
       - ./tsconfig.json:/srv/codelaunch/tsextends.json
@@ -43,7 +42,7 @@ services:
       - ./jobs.json:/srv/codelaunch/jobs.json
       - ./package.json:/srv/codelaunch/context.json
       - ./output:/srv/codelaunch/.output
-      - ./.env:/srv/codelaunch/.env
+      - ./nginx.conf:/etc/nginx/nginx.conf
       ########################################################################################
       # ============================ APP DEVELOPMENT REGISTRATION ============================
       #
