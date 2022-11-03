@@ -14,7 +14,7 @@ services:
     depends_on:
       - admin
       - queue
-    image: ${IMAGE:-registry.gitlab.com/vitruviantech/codelaunch/platform}:${VERSION:-2022.0.0-beta.10}
+    image: ${IMAGE:-registry.gitlab.com/vitruviantech/codelaunch/platform}:${VERSION:-2023.0.0-rc.1}
     # tty: true
     stdin_open: true
     ports:
